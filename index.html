@@ -362,96 +362,70 @@
         </div>
     </footer>
 
-<!-- Lead Form Modal -->
-<div id="leadModal" class="fixed inset-0 z-[999] hidden" aria-hidden="true">
-  <!-- overlay -->
-  <div id="leadModalOverlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+<!-- FD Modal -->
+<div id="fdModal" class="fixed inset-0 z-[999] hidden" aria-hidden="true">
+  <div id="fdOverlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
 
-  <!-- dialog -->
   <div class="relative min-h-full flex items-center justify-center p-4">
-    <div class="w-full max-w-lg rounded-2xl bg-white border border-slate-200 shadow-xl">
+    <div class="w-full max-w-[620px] rounded-2xl bg-white border border-slate-200 shadow-xl">
       <div class="flex items-start justify-between p-6 border-b border-slate-200">
         <div>
           <h3 class="text-lg font-medium text-slate-900 tracking-tight">Оставить заявку</h3>
-          <p id="leadModalSubtitle" class="text-sm text-slate-600 mt-1">Заполним данные — и свяжемся с вами.</p>
+          <p id="fdSubtitle" class="text-sm text-slate-600 mt-1"></p>
         </div>
-        <button id="leadModalClose" class="text-slate-500 hover:text-slate-900 transition-colors" aria-label="Закрыть">
+        <button id="fdClose" class="text-slate-500 hover:text-slate-900 transition-colors" aria-label="Закрыть">
           <span class="text-2xl leading-none">×</span>
         </button>
       </div>
 
-      <form id="leadForm" class="p-6">
-        <input type="hidden" name="source" id="leadSource" value="">
-
-        <div class="grid grid-cols-1 gap-4">
-          <label class="block">
-            <span class="text-sm font-medium text-slate-700">Имя</span>
-            <input name="name" type="text" required="" class="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-teal-200 focus:border-teal-400" placeholder="Иван">
-          </label>
-
-          <label class="block">
-            <span class="text-sm font-medium text-slate-700">Email</span>
-            <input name="email" type="email" required="" class="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-teal-200 focus:border-teal-400" placeholder="ivan@example.com">
-          </label>
-
-          <label class="block">
-            <span class="text-sm font-medium text-slate-700">Телефон</span>
-            <input name="phone" type="tel" required="" class="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-teal-200 focus:border-teal-400" placeholder="+7 (___) ___-__-__">
-          </label>
-
-          <label class="flex items-start gap-3 mt-2">
-            <input id="privacyCheck" name="privacy" type="checkbox" class="mt-1 h-4 w-4 rounded border-slate-300 text-teal-600 focus:ring-teal-200">
-            <span class="text-xs text-slate-500 leading-relaxed">
-              Я согласен(а) с
-              <a href="/privacy.html" target="_blank" class="text-teal-700 hover:text-teal-800 underline underline-offset-2">
-                политикой конфиденциальности
-              </a>
-              и даю согласие на обработку персональных данных.
-            </span>
-          </label>
-
-          <div id="leadError" class="hidden text-sm text-red-600"></div>
-          <div id="leadSuccess" class="hidden text-sm text-teal-700"></div>
-
-          <button id="leadSubmit" type="submit" disabled="" class="mt-2 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md bg-teal-600 text-white text-sm font-medium shadow-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-teal-500 transition-colors">
-            Отправить
-          </button>
-
-          <p class="text-xs text-slate-400">
-            Нажимая «Отправить», вы подтверждаете корректность введённых данных.
-          </p>
+      <!-- сюда FormDesigner встроит форму -->
+      <div class="p-6">
+        <div id="fdFormWrap">
+          <!-- ВАЖНО: не удаляйте этот div -->
+          <div data-fd-form="243682"></div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
-<!-- /Lead Form Modal -->
-<script>
+<!-- /FD Modal -->
+    <script type="text/javascript">
+  (function (d, o) {
+      var s = d.createElement("script"), g = "getElementsByTagName";
+      s.type = "text/javascript"; s.async = true;
+      s.src = "//formdesigner.ru/js/universal/init.js?v=1.0.0";
+      s.onload = function () {
+          if (document.readyState !== 'loading') {
+              FD.init(o);
+          } else document.addEventListener("DOMContentLoaded", function () {
+              FD.init(o);
+          });
+      };
+      var h = d[g]("head")[0] || d[g]("body")[0];
+      h.appendChild(s);
+  })(document, {
+    "host": "formdesigner.ru",
+    "forms": {
+      "243682": {
+        "width": "100%",
+        "height": "auto",
+        "scroll": true
+      }
+    }
+  });
+</script>
+    <script>
   (function () {
-    const modal = document.getElementById('leadModal');
-    const overlay = document.getElementById('leadModalOverlay');
-    const closeBtn = document.getElementById('leadModalClose');
-    const form = document.getElementById('leadForm');
+    const modal = document.getElementById('fdModal');
+    const overlay = document.getElementById('fdOverlay');
+    const closeBtn = document.getElementById('fdClose');
+    const subtitle = document.getElementById('fdSubtitle');
 
     const btnConsult = document.getElementById('btnConsult');
     const btnRequest = document.getElementById('btnRequest');
 
-    const sourceInput = document.getElementById('leadSource');
-    const subtitle = document.getElementById('leadModalSubtitle');
-
-    const privacy = document.getElementById('privacyCheck');
-    const submitBtn = document.getElementById('leadSubmit');
-
-    const errBox = document.getElementById('leadError');
-    const okBox = document.getElementById('leadSuccess');
-
     function openModal(sourceText) {
-      sourceInput.value = sourceText || '';
-      subtitle.textContent = sourceText ? `Источник: ${sourceText}` : 'Заполним данные — и свяжемся с вами.';
-      errBox.classList.add('hidden'); errBox.textContent = '';
-      okBox.classList.add('hidden'); okBox.textContent = '';
-      form.reset();
-      submitBtn.disabled = true;
+      subtitle.textContent = sourceText ? `Источник: ${sourceText}` : '';
       modal.classList.remove('hidden');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -463,72 +437,13 @@
       document.body.style.overflow = '';
     }
 
-    function setError(msg) {
-      okBox.classList.add('hidden'); okBox.textContent = '';
-      errBox.textContent = msg;
-      errBox.classList.remove('hidden');
-    }
-
-    function setSuccess(msg) {
-      errBox.classList.add('hidden'); errBox.textContent = '';
-      okBox.textContent = msg;
-      okBox.classList.remove('hidden');
-    }
-
-    // открыть модалку по двум кнопкам
     if (btnConsult) btnConsult.addEventListener('click', () => openModal('Получить консультацию'));
     if (btnRequest) btnRequest.addEventListener('click', () => openModal('Отправить запрос'));
 
-    // закрытие
     overlay.addEventListener('click', closeModal);
     closeBtn.addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
-
-    // включаем кнопку только если согласие отмечено
-    privacy.addEventListener('change', () => {
-      submitBtn.disabled = !privacy.checked;
-    });
-
-    // отправка формы
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (!privacy.checked) {
-        setError('Чтобы отправить форму, нужно согласиться с политикой конфиденциальности.');
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Отправляем…';
-
-      try {
-        const formData = new FormData(form);
-        const res = await fetch('/send.php', {
-          method: 'POST',
-          body: formData
-        });
-
-        const data = await res.json().catch(() => null);
-
-        if (!res.ok || !data || data.ok !== true) {
-          const msg = (data && data.error) ? data.error : 'Не удалось отправить заявку. Попробуйте позже.';
-          setError(msg);
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Отправить';
-          return;
-        }
-
-        setSuccess('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-        submitBtn.textContent = 'Отправлено';
-
-        // можно автозакрывать через 2 секунды:
-        setTimeout(closeModal, 2000);
-
-      } catch (err) {
-        setError('Ошибка сети. Проверьте соединение и попробуйте ещё раз.');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Отправить';
-      }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
     });
   })();
 </script>
